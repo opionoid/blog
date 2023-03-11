@@ -1,0 +1,21 @@
+:root {
+  --space-unit: 0.5rem;
+  --space-xs: 1 * var(--space-unit);
+  --space-xs-x: 8px;
+  --space-xs-y: var(--space-xs);
+  --space-s: 2 * var(--space-unit);
+  --space-s-x: 16px;
+  --space-s-y: var(--space-s);
+  --space-m: 3 * var(--space-unit);
+  --space-m-x: 24px;
+  --space-m-y: var(--space-m);
+  --space-l: 5 * var(--space-unit);
+  --space-l-x: 40px;
+  --space-l-y: var(--space-l);
+  --space-xl: 8 * var(--space-unit);
+  --space-xl-x: 64px;
+  --space-xl-y: var(--space-xl);
+  --space-xxl: 13 * var(--space-unit);
+  --space-xxl-x: 104px;
+  --space-xxl-y: var(--space-xxl);
+}

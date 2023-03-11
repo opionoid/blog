@@ -1,67 +1,263 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+@import url(./variables/index.css);
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/**
+ * font
  */
 body {
-	font-family: Verdana, sans-serif;
-	margin: auto;
-	padding: 20px;
-	max-width: 65ch;
-	text-align: left;
-	background-color: #fff;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	line-height: 1.5;
-	color: #444;
+  white-space: pre-line;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-base);
+  color: var(--color-font-base);
+  font-family: 'Shippori Mincho', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-kerning: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /** 特殊な文字 */
+  font-variant-ligatures: common-ligatures;
+
+  /** ハイフン */
+  -ms-hyphenate-limit-chars: 6 3 2;
+  -ms-hyphenate-limit-last: always;
+  -ms-hyphenate-limit-zone: 8%;
+  line-height: 1.8;
 }
-h1,
-h2,
-h3,
+
+@media screen and (min-width: 60em) {
+  body {
+    font-size: 1.125rem;
+  }
+}
+
+@media screen and (min-width: 120em) {
+  body {
+    font-size: 1.375rem;
+  }
+}
+
+/**
+ * 良い子は以下のクソコード真似しないでね
+ */
+
+/** 要素のフォントサイズ */
+h1 {
+  font-size: calc(0.8rem + 3.2vmin);
+  font-variant-numeric: lining-nums;
+  line-height: 44px;
+  text-align: center;
+}
+
+h2 {
+  font-size: calc(0.5rem + 2.3vmin);
+  font-variant-numeric: lining-nums;
+  line-height: 28px;
+}
+
+h3 {
+  font-size: calc(1rem + 0.6vmin);
+  font-variant-numeric: lining-nums;
+  line-height: 20px;
+}
+
 h4,
 h5,
-h6,
-strong,
-b {
-	color: #222;
+h6 {
+  font-size: calc(1rem + 0.3vmin);
+  font-variant-numeric: lining-nums;
 }
+
+p {
+  font-variant-numeric: oldstyle-nums; /** FIXME: Safariで1回拡大すると表示が少し崩れる */
+}
+
+p + p {
+  margin-top: 0;
+}
+
+/** サンクンキャップ */
+article p:first-of-type::first-letter {
+  initial-letter: 2 2;
+	margin-right: 0.5ch;
+}
+
+/** フルーロン */
+hr {
+  height: calc(2em + 1.6vmin);
+  border: 0;
+  margin: 4.5em auto;
+  background: url(../assets/icons/fleuron.svg) center no-repeat;
+  background-size: contain;
+  content: '#10086';
+}
+
+/** リストの初期化 */
+ol {
+  padding-left: 0;
+  margin-left: 0;
+  counter-reset: initialized-list;
+  list-style: none;
+}
+
+ol li::before {
+  margin-right: 1em;
+  margin-left: -1.5em; /** TODO: これ読み上げのとき後ろ1文字切れちゃう気がするから確認 */
+  content: counter(initialized-list);
+  counter-increment: initialized-list;
+}
+
+/** リンク */
 a {
-	color: #3273dc;
+  border-bottom: 1px solid var(--color-font-base);
+  text-decoration: none;
+  outline-color: var(--color-font-base);
 }
-nav a {
-	margin-right: 10px;
+
+a:visited {
+  border-bottom: 1px solid var(--color-font-accent);
+  outline-color: var(--color-font-accent);
 }
-textarea {
-	width: 100%;
-	font-size: 16px;
+
+@supports (text-decoration-skip-ink: auto) {
+  a {
+    border-bottom: 0;
+    text-decoration: underline solid var(--color-font-base);
+    text-decoration-skip-ink: auto;
+  }
+
+  a:visited {
+    border-bottom: 0;
+    text-decoration: underline solid var(--color-font-accent);
+    text-decoration-skip-ink: auto;
+  }
 }
+
+button {
+  outline-color: var(--color-sub);
+}
+
 input {
-	font-size: 16px;
+  outline-color: var(--color-sub);
 }
-content {
-	line-height: 1.6;
+
+/** 上つき文字／下つき文字 */
+sub {
+  font-feature-settings: 'subs' 1;
 }
-table {
-	width: 100%;
+
+@supports (font-variant-position: sub) {
+  sub {
+    font-feature-settings: normal;
+    font-variant-position: sub;
+  }
 }
-img {
-	max-width: 100%;
-	height: auto;
+
+@supports ((font-variant-position: sub) or (font-feature-settings: 'subs' 1)) {
+  sub {
+    font-size: inherit;
+    vertical-align: baseline;
+  }
 }
-code {
-	padding: 2px 5px;
-	background-color: #f2f2f2;
+
+sup {
+  font-feature-settings: 'sups' 1;
 }
-pre {
-	padding: 1rem;
+
+@supports (font-variant-position: super) {
+  sup {
+    font-feature-settings: normal;
+    font-variant-position: super;
+  }
 }
-pre > code {
-	all: unset;
+
+@supports ((font-variant-position: super) or (font-feature-settings: 'sups' 1)) {
+  sup {
+    font-size: inherit;
+    vertical-align: baseline;
+  }
 }
+
+/** 約物 */
 blockquote {
-	border: 1px solid #999;
-	color: #222;
-	padding: 2px 0px 2px 20px;
-	margin: 0px;
-	font-style: italic;
+  position: relative;
+  text-align: center;
+}
+
+blockquote::before {
+  margin-left: -0.6ch;
+  content: '&ldquo';
+}
+
+blockquote::after {
+  margin-right: -1.1ch;
+  content: '.&rdquo';
+}
+
+/** 記事レイアウト */
+article {
+  width: 100%;
+  max-width: min(38em, calc(100% - 2 * var(--space-s-x)));
+  margin-right: auto;
+  margin-left: auto;
+}
+
+article p {
+  margin-bottom: var(--space-m);
+  text-indent: 1.5em;
+}
+
+aside {
+  margin: 1em;
+
+  @media only screen and (min-width: 60em) {
+    width: 10em;
+    margin-top: 0;
+    margin-left: -11em;
+    float: left;
+  }
+
+  @media only screen and (min-width: 49em) {
+    width: 10em;
+    margin-top: 0;
+    margin-left: -5em;
+    float: left;
+  }
+}
+
+article details {
+  margin-top: var(--space-m);
+}
+
+article details > p {
+  margin-bottom: 0;
+  margin-left: var(--space-l);
+  font-size: 0.9em;
+}
+
+article details > p + p {
+  margin-top: var(--space-xs);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

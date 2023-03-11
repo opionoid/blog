@@ -14,5 +14,9 @@
     "@astrojs/mdx": "^0.17.2",
     "@astrojs/rss": "^2.1.1",
     "@astrojs/sitemap": "^1.1.0"
+  },
+  "volta": {
+    "node": "18.15.0",
+    "npm": "9.6.1"
   }
 }
